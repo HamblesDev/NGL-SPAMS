@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGL SPAMMER</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #1a1c2c;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: auto;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      width: 100%;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #00e676;
+    }
+    header p {
+      font-size: 16px;
+      color: #8a8d9d;
+    }
+    form {
+      background-color: #2b2e4a;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    form:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #8a8d9d;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1a1c2c;
+      color: #ffffff;
+      font-size: 16px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    input[type="text"]::placeholder,
+    input[type="number"]::placeholder,
+    textarea::placeholder {
+      color: #8a8d9d;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    textarea:focus {
+      background-color: #2b2e4a;
+      box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      background-color: #00e676;
+      color: #1a1c2c;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #00c853;
+    }
+    .success-message,
+    .error-message,
+    .sending-message {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      display: none;
+      animation: slideInDown 0.5s ease;
+    }
+    .success-message {
+      background-color: #00e676;
+      color: #1a1c2c;
+    }
+    .error-message {
+      background-color: #ff3d00;
+      color: #1a1c2c;
+    }
+    .sending-message {
+      background-color: #1e88e5;
+      color: #ffffff;
+    }
+    @keyframes slideInDown {
+      0% {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @media only screen and (max-width: 600px) {
+      form {
+        padding: 20px; 
+      }
+      input[type="text"],
+      input[type="number"],
+      textarea {
+        padding: 10px; 
+        font-size: 14px; 
+      }
+      button {
+        font-size: 16px; 
+      }
+      .console-container {
+        height: 300px;
+      }
+      #consoleLogs li {
+        font-size: 12px;
+      }
+    }
+    .console-container {
+      max-width: 500px;
+      width: 100%;
+      background-color: #2b2e4a;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      padding: 20px;
+      overflow-y: auto;
+      height: 400px; 
+      scrollbar-width: none; 
+      -ms-overflow-style: none; 
+    }
+    .console-container::-webkit-scrollbar {
+      display: none; 
+    }
+    .console-container h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #ffffff;
+      display: none;
+    }
+    #consoleLogs {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+    }
+    #consoleLogs li {
+      margin-bottom: 10px;
+      color: #00FF00; 
+      font-family: 'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>NGL SPAMMER</h1>
+      <p>POWERED BY KENNETH PEREZ</p>
+    </header>
+    <form id="spamForm" method="POST" action="/ngl">
+      <label for="link">TARGET NGL LINK:</label>
+      <input type="text" id="link" name="link" placeholder="NGL LINK" pattern="https:\/\/ngl\.link\/.*" title="Please enter a valid NGL link starting with 'https://ngl.link/'" required>
+
+      <label for="message">YOUR MESSAGE :</label>
+      <textarea id="message" name="message" placeholder="TYPE YOUR MESSAGE HERE"></textarea>
+
+      <label for="amount">SPAM COUNT LIMIT (MAX 500):</label>
+      <input type="number" id="amount" name="amount" placeholder="COUNT LIMIT" max="500">
+
+      <button type="submit"><i class="fas fa-paper-plane"></i> SUBMIT</button>
+
+      <div class="sending-message" id="sendingMessage">SPAMMING MESSAGE IS STARTING PLEASE WAIT</div>
+      <div class="success-message" id="successMessage"><span id="logContent"></span></div>
+      <div class="error-message" id="errorMessage">PLEASE COMPLETE THE FORM AND TRY AGAIN</div>
+    </form>
+  </div>
+
+  <div class="console-container">
+    <h2>CONSOLE LOGS</h2>
+    <ul id="consoleLogs"></ul>
+  </div>
+
+  <script>
+    document.getElementById('spamForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const form = this;
+      const sendingMessage = document.getElementById('sendingMessage');
+      const successMessage = document.getElementById('successMessage');
+      const errorMessage = document.getElementById('errorMessage');
+      const logContent = document.getElementById('logContent');
+
+      sendingMessage.style.display = 'block';
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: new FormData(form)
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+
+        sendingMessage.style.display = 'none';
+
+        if (data.msg) {
+          logContent.textContent = data.msg;
+          successMessage.style.display = 'block';
+          clearConsoleLogs(); 
+          form.reset();
+          setTimeout(() => {
+            successMessage.style.display = 'none';
+            scrollConsoleToBottom();
+          }, 5000);
+        } else {
+          throw new Error('Received response does not contain expected data');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        sendingMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+        setTimeout(() => {
+          errorMessage.style.display = 'none';
+        }, 5000);
+      }
+    });
+
+    async function fetchConsoleLogs() {
+      try {
+        const response = await fetch('/console_logs');
+        const data = await response.json();
+        const consoleLogsList = document.getElementById('consoleLogs');
+        const shouldScroll = consoleLogsList.scrollTop + consoleLogsList.clientHeight === consoleLogsList.scrollHeight;
+
+        consoleLogsList.innerHTML = '';
+
+        data.logs.forEach(log => {
+          const li = document.createElement('li');
+          li.textContent = log;
+          consoleLogsList.appendChild(li);
+        });
+
+        if (shouldScroll) {
+          scrollConsoleToBottom();
+        }
+      } catch (error) {
+        console.error('Error fetching console logs:', error);
+      }
+    }
+
+    fetchConsoleLogs();
+    setInterval(fetchConsoleLogs, 2000);
+
+    function scrollConsoleToBottom() {
+      const consoleContainer = document.querySelector('.console-container');
+      consoleContainer.scrollTop = consoleContainer.scrollHeight;
+    }
+
+    function clearConsoleLogs() {
+      const consoleLogsList = document.getElementById('consoleLogs');
+      consoleLogsList.innerHTML = '';
+    }
+  </script>
+</body>
+</html>
